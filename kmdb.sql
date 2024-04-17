@@ -121,19 +121,114 @@
 -- TODO!
 
 -- Prints a header for the movies output
-.print "Movies"
-.print "======"
-.print ""
+
 
 -- The SQL statement for the movies output
 -- TODO!
 
 -- Prints a header for the cast output
+
+
+
+-- The SQL statement for the cast output
+-- TODO!
+
+DROP TABLE IF EXISTS studios;
+DROP TABLE IF EXISTS movies;
+DROP TABLE IF EXISTS actors;
+DROP TABLE IF EXISTS roles;
+
+CREATE TABLE movies (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    title TEXT,
+    year_released INTEGER,
+    MPAA TEXT,
+    studio_id INTEGER
+);
+CREATE TABLE studios (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT
+);
+CREATE TABLE actors (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT
+);
+CREATE TABLE roles (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    actor_id INTEGER,
+    movie_id INTEGER,
+    character TEXT
+);
+
+INSERT INTO studios (
+    name
+)
+VALUES (
+    "Warner Bros."
+);
+
+INSERT INTO movies (
+    title,
+    year_released,
+    MPAA,
+    studio_id
+)
+VALUES 
+("Batman Begins",2005,"PG-13",1),
+("The Dark Knight",2008,"PG-13",1),
+("The Dark Knight Rises",2012,"PG-13",1);
+
+INSERT INTO actors (
+    name
+)
+VALUES 
+("Christian Bale"),
+("Michael Caine"),
+("Liam Neeson"),
+("Katie Holmes"),
+("Gary Oldman"),
+("Heath Ledger"),
+("Aaron Eckhart"),
+("Maggie Gyllenhaal"),
+("Tom Hardy"),
+("Joseph Gordon-Levitt"),
+("Anne Hathaway");
+
+INSERT INTO roles (
+    movie_id,
+    actor_id,
+    character
+)
+
+VALUES 
+(1,1,"Bruce Wayne"),
+(1,2,"Alfred"),
+(1,3,"Ra's Al Ghul"),
+(1,4,"Rachel Dawes"),
+(1,5,"Commissioner Gordon"),
+(2,1,"Bruce Wayne"),
+(2,6,"joker"),
+(2,7,"Harvey Dent"),
+(2,2,"Alfred"),
+(2,8,"Rachel Dawes"),
+(3,1,"Bruce Wayne"),
+(3,5,"Commissioner Gordon"),
+(3,9,"Bane"),
+(3,10,"John Blake"),
+(3,11,"Selina Kyle");
+
+.print "Movies"
+.print "======"
+.print ""
+
+SELECT movies.title, movies.year_released, movies.MPAA, studios.name
+FROM movies INNER JOIN studios ON movies.studio_id = studios.id;
+
 .print ""
 .print "Top Cast"
 .print "========"
 .print ""
 
-
--- The SQL statement for the cast output
--- TODO!
+SELECT movies.title, actors.name, roles.character
+FROM roles INNER JOIN movies ON roles.movie_id = movies.id
+INNER JOIN actors ON roles.actor_id = actors.id;
